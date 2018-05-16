@@ -1,1 +1,1 @@
-# kinect-smarthome
+# VR Dementia Training
