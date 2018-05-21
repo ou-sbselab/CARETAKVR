@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DigitalRuby.PyroParticles;
 
 public class StoveButton : MonoBehaviour {
 
@@ -9,9 +8,10 @@ public class StoveButton : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log("Hellooooo!");
 	}
 	
+    private void OnHand
+
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyUp(KeyCode.E))
