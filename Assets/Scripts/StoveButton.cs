@@ -8,9 +8,7 @@ public class StoveButton : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	}
-	
-    private void OnHand
+    }
 
 	// Update is called once per frame
 	void Update () {
