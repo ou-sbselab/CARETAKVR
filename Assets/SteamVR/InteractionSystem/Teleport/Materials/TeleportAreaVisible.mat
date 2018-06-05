@@ -21,7 +21,7 @@ Material:
     m_TexEnvs:
     - _MainTex:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 5.0065, y: 5.6807}
+        m_Scale: {x: 3.13135, y: 2.3225}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Darken: 0

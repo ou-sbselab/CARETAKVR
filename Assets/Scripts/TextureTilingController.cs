@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEditor;
 
 [ExecuteInEditMode]
 public class TextureTilingController : MonoBehaviour
@@ -7,7 +8,7 @@ public class TextureTilingController : MonoBehaviour
 
 	// Give us the texture so that we can scale proportianally the width according to the height variable below
 	// We will grab it from the meshRenderer
-	public Texture texture;
+	public Material mat;
 	public float textureToMeshZ = 2f; // Use this to contrain texture to a certain size
 
 	Vector3 prevScale = Vector3.one;
@@ -42,8 +43,25 @@ public class TextureTilingController : MonoBehaviour
 		float planeSizeZ = 10f;
 
 		// Figure out texture-to-mesh width based on user set texture-to-mesh height
-		float textureToMeshX = ((float) this.texture.width / this.texture.height) * this.textureToMeshZ;
+		Texture tex = this.mat.mainTexture;
+		float textureToMeshX = ((float) tex.width / tex.height) * this.textureToMeshZ;
 
-		gameObject.GetComponent<Renderer>().sharedMaterial.mainTextureScale = new Vector2(planeSizeX * gameObject.transform.lossyScale.x / textureToMeshX, planeSizeZ * gameObject.transform.lossyScale.z / textureToMeshZ);
+		Vector2 scal = new Vector2(planeSizeX * gameObject.transform.lossyScale.x / textureToMeshX, planeSizeZ * gameObject.transform.lossyScale.z / textureToMeshZ);
+		Renderer render = gameObject.GetComponent<Renderer>();
+
+		if (render)
+		{
+			foreach (Material mat in render.materials)
+			{
+				Shader shader = mat.shader;
+				for (int i = 0; i < ShaderUtil.GetPropertyCount(shader); i++)
+				{
+					if (ShaderUtil.GetPropertyType(shader, i) == ShaderUtil.ShaderPropertyType.TexEnv)
+					{
+						mat.SetTextureScale(ShaderUtil.GetPropertyName(shader, i), scal);
+					}
+				}
+			}
+		}
 	}
 }
